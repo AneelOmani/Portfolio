@@ -1,0 +1,108 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table {
+  width:100%;
+}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 15px;
+  text-align: left;
+}
+table#t01 tr:nth-child(even) {
+  background-color: #eee;
+}
+table#t01 tr:nth-child(odd) {
+ background-color: #fff;
+}
+table#t01 th {
+  background-color: black;
+  color: white;
+}
+
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+
+input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+</style>
+</head>
+<body>
+
+
+<br>
+{% if user.is_authenticated %}
+<button onclick="myFunction()" > Add Project</button>
+{% endif %}
+<table id="t01">
+    <tr>
+        <th>Name of Project</th>
+        <th>Description</th>
+    </tr>
+  {% for pro in project %}
+  <tr>
+      <td>{{pro.name}}</td>
+      <td>{{pro.description}}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+<div id='myDIV' style="display:none">
+    <form action="project" method="post">
+      {% csrf_token %}
+      <label for="fname">First Name</label>
+      <input type="text" name="firstname" placeholder="Name of the Project">
+
+      <label for="subject">Message</label>
+      <textarea name="subject" placeholder="Write Description about Project" style="height:200px"></textarea>
+  
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+
+
+  <script>
+      function myFunction() {
+        var x = document.getElementById("myDIV");
+        if (x.style.display === "none") {
+          x.style.display = "block";
+        } else {
+          x.style.display = "none";
+        }
+      }
+      function buttonFunction() {
+        var x = document.getElementById("button");
+        if (x.style.display === "none") {
+          x.style.display = "block";
+        } else {
+          x.style.display = "none";
+        }
+      }
+      </script>
+</body>
+</html>
